@@ -1,0 +1,5 @@
+.vscode
+Secret.h
+debug_custom.json
+debug.cfg
+*.svd

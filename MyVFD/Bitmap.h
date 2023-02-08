@@ -1,0 +1,2 @@
+const uint8_t loadingAnimation[6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
+const int loadingAnimationLenth = 6;
