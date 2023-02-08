@@ -1,3 +1,5 @@
+// Core 0 is used for loading the data from modules.
+
 const long modeCycleStep = 3000;
 unsigned long modeCycleTimeMark = 0;
 
@@ -10,19 +12,22 @@ void core0Loop() {
       setupModules();
       delay(3000);
       while(millis() % 1000 > 5) {
-        // Wait for time to align.
+        // Wait for time to align up.
       }
       modeCycleTimeMark = millis(); 
       currentMode = modecycle[0];
       break;
+
     case currentDate:
       dateTime.getNewDateTime();
       isLoading = dateTime.isLoading;
       break;
+
     case currentTime:
       dateTime.getNewDateTime();
       isLoading = dateTime.isLoading;
       break;
+
     default: break;
   }
   checkNextMode();
@@ -46,19 +51,20 @@ void setupModules() {
 
 void checkNextMode() {
   if (modeCycleTimeMark == 0) {
-    return;
+    return; // WiFi setup not finished.
   }
+
+  // Check time.
   if (millis() - modeCycleTimeMark > modeCycleStep) {
       modeCycleTimeMark = millis();
   } else {
     return;
   }
+
+  // Next mode.
   currentModeIndex += 1;
-  if (currentModeIndex >= (sizeof(modecycle) / sizeof(DisplayMode))) {
-    currentModeIndex = 0;
-  }
+  currentModeIndex = currentModeIndex % (sizeof(modecycle) / sizeof(DisplayMode));
   currentMode = modecycle[currentModeIndex];
+
   isLoading = false;
-  Serial.println(currentModeIndex);
-  Serial.println((sizeof(modecycle) / sizeof(DisplayMode)));
 }
