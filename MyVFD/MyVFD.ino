@@ -22,6 +22,9 @@ DisplayMode currentMode = ipAddress;
 int currentModeIndex = 0;
 bool isLoading = true;
 
+// Modules
+DateTime dateTime = DateTime();
+
 void setup() {
   Serial.begin(115200);
 

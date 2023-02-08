@@ -27,10 +27,10 @@ void core1Loop() {
     break;
 
     case currentDate:
-    sevseg.setChars(dateString);
+    sevseg.setChars(dateTime.dateString);
     break;
     case currentTime:
-    sevseg.setChars(timeString);
+    sevseg.setChars(dateTime.timeString);
     break;
     default:
     sevseg.blank();

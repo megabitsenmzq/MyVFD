@@ -7,14 +7,21 @@ void core0Loop() {
       if (WiFi.status() != WL_CONNECTED) {
         waitForWifi();
       }
+      setupModules();
       delay(3000);
-      setupAfterNetwork();
+      while(millis() % 1000 > 5) {
+        // Wait for time to align.
+      }
+      modeCycleTimeMark = millis(); 
+      currentMode = modecycle[0];
       break;
     case currentDate:
-      getNewDateTime();
+      dateTime.getNewDateTime();
+      isLoading = dateTime.isLoading;
       break;
     case currentTime:
-      getNewDateTime();
+      dateTime.getNewDateTime();
+      isLoading = dateTime.isLoading;
       break;
     default: break;
   }
@@ -33,14 +40,8 @@ void waitForWifi() {
   isLoading = false;
 }
 
-void setupAfterNetwork() {
-  while(millis() % 1000 > 5) {
-    // Wait for time to align.
-  }
-
-  modeCycleTimeMark = millis(); 
-  currentMode = modecycle[0];
-  setupTime();
+void setupModules() {
+  dateTime.setupTime();
 }
 
 void checkNextMode() {
@@ -57,6 +58,7 @@ void checkNextMode() {
     currentModeIndex = 0;
   }
   currentMode = modecycle[currentModeIndex];
+  isLoading = false;
   Serial.println(currentModeIndex);
   Serial.println((sizeof(modecycle) / sizeof(DisplayMode)));
 }
