@@ -7,6 +7,7 @@ int loadingAnimationIndex = 0;
 
 void core1Loop() {
   sevseg.refreshDisplay();
+  led.pwmLoop();
 
   if(isLoading) {
     // Load animation.
@@ -21,10 +22,11 @@ void core1Loop() {
       loadingAnimationTimeMark = millis();
       loadingAnimationIndex += 1;
     }
-
+    led.setState(true);
     return;
   } else {
     loadingAnimationIndex = 0;
+    led.setState(false);
   }
 
   switch (currentMode) {

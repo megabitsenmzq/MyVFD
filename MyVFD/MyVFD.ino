@@ -2,6 +2,7 @@
 #include "src/SevSeg/SevSeg.h"
 #include "Bitmap.h"
 #include "Secret.h"
+#include "LED.h"
 #include "DateTime.h"
 
 // SveSeg
@@ -23,6 +24,7 @@ int currentModeIndex = 0;
 bool isLoading = true;
 
 // Modules
+LED led = LED();
 DateTime dateTime = DateTime();
 
 void setup() {
