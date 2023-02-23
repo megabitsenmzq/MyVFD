@@ -1,7 +1,7 @@
 // Core 0 is used for loading the data from modules.
 
-const long modeCycleStep = 3000;
-unsigned long modeCycleTimeMark = 0;
+const long modeCycleInterval = 3000;
+unsigned long modeCycleTimeStamp = 0;
 
 void core0Loop() {
   switch (currentMode) {
@@ -14,7 +14,7 @@ void core0Loop() {
       while(millis() % 1000 > 5) {
         // Wait for time to align up.
       }
-      modeCycleTimeMark = millis(); 
+      modeCycleTimeStamp = millis(); 
       currentMode = modecycle[0];
       break;
 
@@ -50,13 +50,13 @@ void setupModules() {
 }
 
 void checkNextMode() {
-  if (modeCycleTimeMark == 0) {
+  if (modeCycleTimeStamp == 0) {
     return; // WiFi setup not finished.
   }
 
   // Check time.
-  if (millis() - modeCycleTimeMark > modeCycleStep) {
-      modeCycleTimeMark = millis();
+  if (millis() - modeCycleTimeStamp > modeCycleInterval) {
+      modeCycleTimeStamp = millis();
   } else {
     return;
   }

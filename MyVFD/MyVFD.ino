@@ -5,6 +5,10 @@
 #include "LED.h"
 #include "DateTime.h"
 
+// Wifi
+extern char* wifiSSID;
+extern char* wifiPassword;
+
 // SveSeg
 SevSeg sevseg;
 const byte hardwareConfig = P_TRANSISTORS;

@@ -1,8 +1,8 @@
 // Core 0 is used for updating the screen.
 
 // Loading Animation
-const long loadingAnimtaionStep = 100;
-unsigned long loadingAnimationTimeMark = 0;
+const long loadingAnimtaionInterval = 100;
+unsigned long loadingAnimationTimeStamp = 0;
 int loadingAnimationIndex = 0;
 
 void core1Loop() {
@@ -18,8 +18,8 @@ void core1Loop() {
     sevseg.setSegments(segments);
 
     // Wait for next.
-    if (millis() - loadingAnimationTimeMark > loadingAnimtaionStep) {
-      loadingAnimationTimeMark = millis();
+    if (millis() - loadingAnimationTimeStamp > loadingAnimtaionInterval) {
+      loadingAnimationTimeStamp = millis();
       loadingAnimationIndex += 1;
     }
     led.setState(true);
