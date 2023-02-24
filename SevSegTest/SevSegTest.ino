@@ -14,7 +14,7 @@ void setup() {
   sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins);
   sevseg.setBrightness(100);
 
-  sevseg.setChars("ZZZ");
+  sevseg.setChars("a.b.c");
 }
 
 void loop() {

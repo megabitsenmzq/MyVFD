@@ -11,6 +11,7 @@ void core0Loop() {
       }
       setupModules();
       delay(3000);
+      showLoadingAnimation = true;
       while(millis() % 1000 > 5) {
         // Wait for time to align up.
       }
@@ -20,21 +21,29 @@ void core0Loop() {
 
     case currentDate:
       dateTime.getNewDateTime();
-      isLoading = dateTime.isLoading;
+      showLoadingAnimation = dateTime.isLoading;
       break;
 
     case currentTime:
       dateTime.getNewDateTime();
-      isLoading = dateTime.isLoading;
+      showLoadingAnimation = dateTime.isLoading;
       break;
 
+    case currentWeather:
+      if (weather.firstValueLoaded) {
+        showLoadingAnimation = false;
+      } else {
+        showLoadingAnimation = weather.isLoading;
+      }
+      weather.updateWeather();
+      break;
     default: break;
   }
   checkNextMode();
 }
 
 void waitForWifi() {
-  isLoading = true;
+  showLoadingAnimation = true;
   Serial.print("Connecting to ");
   Serial.print(wifiSSID);
   while(WiFi.status() != WL_CONNECTED) {
@@ -42,7 +51,7 @@ void waitForWifi() {
     delay(100);
   }
   Serial.print("OK\n");
-  isLoading = false;
+  showLoadingAnimation = false;
 }
 
 void setupModules() {
@@ -66,5 +75,5 @@ void checkNextMode() {
   currentModeIndex = currentModeIndex % (sizeof(modecycle) / sizeof(DisplayMode));
   currentMode = modecycle[currentModeIndex];
 
-  isLoading = false;
+  showLoadingAnimation = false;
 }

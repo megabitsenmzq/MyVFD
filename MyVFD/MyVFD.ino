@@ -4,6 +4,7 @@
 #include "Secret.h"
 #include "LED.h"
 #include "DateTime.h"
+#include "Weather.h"
 
 // Wifi
 extern char* wifiSSID;
@@ -21,15 +22,16 @@ TaskHandle_t Core0Task[1];
 TaskHandle_t Core1Task[1];
 
 // Display Mode
-enum DisplayMode {ipAddress, currentDate, currentTime, blank};
-DisplayMode modecycle[] = {currentDate, currentTime};
+enum DisplayMode {ipAddress, currentDate, currentTime, currentWeather, blank};
+DisplayMode modecycle[] = {currentDate, currentTime, currentWeather};
 DisplayMode currentMode = ipAddress;
 int currentModeIndex = 0;
-bool isLoading = true;
+bool showLoadingAnimation = true;
 
 // Modules
 LED led = LED();
 DateTime dateTime = DateTime();
+Weather weather = Weather();
 
 void setup() {
   Serial.begin(115200);

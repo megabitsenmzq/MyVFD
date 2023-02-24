@@ -7,9 +7,11 @@ int loadingAnimationIndex = 0;
 
 void core1Loop() {
   sevseg.refreshDisplay();
+
+  led.setState(dateTime.isLoading || weather.isLoading);
   led.pwmLoop();
 
-  if(isLoading) {
+  if(showLoadingAnimation) {
     // Load animation.
     uint8_t segments[9];
     for (int i=0; i<9; i++) {
@@ -22,11 +24,9 @@ void core1Loop() {
       loadingAnimationTimeStamp = millis();
       loadingAnimationIndex += 1;
     }
-    led.setState(true);
     return;
   } else {
     loadingAnimationIndex = 0;
-    led.setState(false);
   }
 
   switch (currentMode) {
@@ -40,6 +40,16 @@ void core1Loop() {
 
     case currentTime:
     sevseg.setChars(dateTime.timeString);
+    break;
+
+    case currentWeather:
+    if (weather.isError) {
+      sevseg.setChars("OPW ERROR");
+    } else {
+      char buffer[10];
+      sprintf(buffer, "TEMP %3.1f*", weather.temp);
+      sevseg.setChars(buffer);
+    }
     break;
 
     default:

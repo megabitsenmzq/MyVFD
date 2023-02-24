@@ -16,7 +16,7 @@ void DateTime::getNewDateTime() {
 
   timeItem = time(NULL);
   timeComponent = localtime(&timeItem);
-  if (timeItem > 1234567890) {
+  if (timeItem > 1234567890) { // Date updated.
     isLoading = false;
   }
   sprintf(dateString, "%02d-%02d-%s", timeComponent->tm_mon+1, timeComponent->tm_mday, weekDay[timeComponent->tm_wday]);
