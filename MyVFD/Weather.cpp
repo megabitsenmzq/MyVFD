@@ -21,6 +21,7 @@ void Weather::updateWeather() {
     int httpStateCode = http.GET();
     if (httpStateCode > 0) { // Make new API call.
       String json = http.getString();
+      Serial.print(F("Weather::updateWeather(), Json string: "));
       Serial.println(json);
       DynamicJsonDocument doc(1024);
       DeserializationError error = deserializeJson(doc, json);
@@ -32,13 +33,11 @@ void Weather::updateWeather() {
       } else {
         const char* main = doc["current"]["weather"][0]["main"];
         skycon = String(main);
-        // Serial.println(skycon);
         if (skycon == "") {
           // Skycon is empty;
           isError = true;
         } else {
           temp = doc["current"]["temp"];
-          // Serial.println(temp);
         }
       }
     } else {
