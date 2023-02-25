@@ -5,7 +5,6 @@ HTTPClient http;
 
 Weather::Weather() {
   String url = apiURL();
-  // Serial.println(url);
   http.setTimeout(2000);
   http.begin(url);
 }

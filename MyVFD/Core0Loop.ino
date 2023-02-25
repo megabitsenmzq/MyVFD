@@ -35,11 +35,11 @@ void core0Loop() {
       } else {
         showLoadingAnimation = weather.isLoading;
       }
-      weather.updateWeather();
       break;
     default: break;
   }
   checkNextMode();
+  weather.updateWeather();
 }
 
 void waitForWifi() {

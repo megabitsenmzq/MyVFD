@@ -47,7 +47,7 @@ void core1Loop() {
       sevseg.setChars("OPW ERROR");
     } else {
       char buffer[10];
-      sprintf(buffer, "TEMP %3.1f*", weather.temp);
+      sprintf(buffer, "TEMP%5.1f*", weather.temp);
       sevseg.setChars(buffer);
     }
     break;
