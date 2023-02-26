@@ -79,6 +79,8 @@ void checkNextMode() {
 
   showLoadingAnimation = false;
   
+  // Serial.print(F("Stack Memory Left: "));
+  // Serial.println(uxTaskGetStackHighWaterMark( NULL ));
   // Serial.print(F("Heap Memory Left: "));
   // Serial.println(ESP.getFreeHeap());
 }
