@@ -2,9 +2,12 @@
 #include "src/SevSeg/SevSeg.h"
 #include "Bitmap.h"
 #include "Secret.h"
-#include "LED.h"
 #include "DateTime.h"
 #include "Weather.h"
+
+// LED
+#define LED_PIN 2 // On board LED.
+#define LED_BRIGHTNESS 64
 
 // Wifi
 extern char* wifiSSID;
@@ -29,12 +32,15 @@ int currentModeIndex = 0;
 bool showLoadingAnimation = true;
 
 // Modules
-LED led = LED();
 DateTime dateTime = DateTime();
 Weather weather = Weather();
 
 void setup() {
   Serial.begin(115200);
+
+  // LED
+  ledcSetup(0, 4096, 8);
+  ledcAttachPin(LED_PIN, 0);
 
   // WiFi
   WiFi.begin(wifiSSID, wifiPassword);

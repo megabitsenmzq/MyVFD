@@ -8,8 +8,8 @@ int loadingAnimationIndex = 0;
 void core1Loop() {
   sevseg.refreshDisplay();
 
-  led.setState(dateTime.isLoading || weather.isLoading);
-  led.pwmLoop();
+  bool ledState = dateTime.isLoading || weather.isLoading;
+  ledcWrite(0, ledState ? LED_BRIGHTNESS : 0);
 
   if(showLoadingAnimation) {
     // Load animation.
