@@ -76,4 +76,7 @@ void checkNextMode() {
   currentMode = modecycle[currentModeIndex];
 
   showLoadingAnimation = false;
+  
+  // Serial.print(F("Heap Memory Left: "));
+  // Serial.println(ESP.getFreeHeap());
 }

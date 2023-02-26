@@ -30,13 +30,13 @@ void Weather::updateWeather() {
         Serial.println(error.f_str());
         isError = true;
       } else {
-        const char* main = doc["current"]["weather"][0]["main"];
+        const char* main = doc["weather"][0]["main"];
         skycon = String(main);
         if (skycon == "") {
           // Skycon is empty;
           isError = true;
         } else {
-          temp = doc["current"]["temp"];
+          temp = doc["main"]["temp"];
         }
       }
     } else {
@@ -50,5 +50,5 @@ void Weather::updateWeather() {
 }
 
 String Weather::apiURL() {
-  return endpoint + "appid=" + String(openWeatherKey) + "&lat=" + String(latitude) + "&lon=" + String(longitude) + F("&units=metric&exclude=minutely,hourly,daily,alerts");
+  return endpoint + "appid=" + String(openWeatherKey) + "&lat=" + String(latitude) + "&lon=" + String(longitude) + F("&units=metric");
 }
