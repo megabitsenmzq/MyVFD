@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <WiFi.h>
 #include "src/SevSeg/SevSeg.h"
 #include "Bitmap.h"
@@ -50,8 +51,8 @@ void setup() {
   sevseg.setBrightness(100);
 
   // Multi Core
-  xTaskCreatePinnedToCore(Core0a, "Core0a", 4096, NULL, 1, &Core0Task[0], 0); 
-  xTaskCreatePinnedToCore(Core1a, "Core1a", 4096, NULL, 2, &Core1Task[0], 1); 
+  xTaskCreatePinnedToCore(Core0a, "Core0a", 1024*8, NULL, 1, &Core0Task[0], 0); 
+  xTaskCreatePinnedToCore(Core1a, "Core1a", 1024*4, NULL, 1, &Core1Task[0], 1); 
 }
 
 void loop() {
