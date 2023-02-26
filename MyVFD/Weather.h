@@ -17,8 +17,10 @@ class Weather {
     bool firstValueLoaded = false;
     bool isLoading = true;
     bool isError = false;
-    double temp = -1;
     String skycon = "";
+    double maxTemp = -1;
+    double minTemp = -1;
+    double currentTemp = -1;
     void updateWeather();
 };
 

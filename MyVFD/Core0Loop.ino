@@ -29,7 +29,9 @@ void core0Loop() {
       showLoadingAnimation = dateTime.isLoading;
       break;
 
-    case currentWeather:
+    case currentTemp:
+    case highTemp:
+    case lowTemp:
       if (weather.firstValueLoaded) {
         showLoadingAnimation = false;
       } else {

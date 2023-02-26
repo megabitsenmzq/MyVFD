@@ -25,8 +25,8 @@ TaskHandle_t Core0Task[1];
 TaskHandle_t Core1Task[1];
 
 // Display Mode
-enum DisplayMode {ipAddress, currentDate, currentTime, currentWeather, blank};
-DisplayMode modecycle[] = {currentDate, currentTime, currentWeather};
+enum DisplayMode {ipAddress, currentDate, currentTime, currentTemp, highTemp, lowTemp, blank};
+DisplayMode modecycle[] = {currentDate, currentTime, currentTemp, highTemp, lowTemp};
 DisplayMode currentMode = ipAddress;
 int currentModeIndex = 0;
 bool showLoadingAnimation = true;

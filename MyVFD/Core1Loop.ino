@@ -31,27 +31,39 @@ void core1Loop() {
 
   switch (currentMode) {
     case ipAddress:
-    sevseg.setChars(WiFi.localIP().toString().c_str());
-    break;
+      sevseg.setChars(WiFi.localIP().toString().c_str());
+      break;
 
     case currentDate:
-    sevseg.setChars(dateTime.dateString);
-    break;
+      sevseg.setChars(dateTime.dateString);
+      break;
 
     case currentTime:
-    sevseg.setChars(dateTime.timeString);
-    break;
+      sevseg.setChars(dateTime.timeString);
+      break;
 
-    case currentWeather:
-    if (weather.isError) {
-      sevseg.setChars("OPW ERROR");
-    } else {
-      char buffer[10];
-      sprintf(buffer, "TEMP%5.1f*", weather.temp);
-      sevseg.setChars(buffer);
-    }
-    break;
-
+    case currentTemp:
+    case highTemp:
+    case lowTemp:
+      if (weather.isError) {
+        sevseg.setChars("OPW ERROR");
+      } else {
+        char buffer[10];
+        switch(currentMode) {
+          case currentTemp:
+            sprintf(buffer, "TEMP%5.1f*", weather.currentTemp);
+            break;
+          case highTemp:
+            sprintf(buffer, "HIGH%5.1f*", weather.maxTemp);
+            break;
+          case lowTemp:
+            sprintf(buffer, "LOW %5.1f*", weather.minTemp);
+            break;
+          default: break;
+        }
+        sevseg.setChars(buffer);
+      }
+      break;
     default:
     sevseg.blank();
     break;

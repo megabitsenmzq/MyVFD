@@ -1,6 +1,8 @@
 #include "Weather.h"
 #include "Secret.h"
 
+#define USE_METRIC 1
+
 HTTPClient http;
 
 Weather::Weather() {
@@ -24,19 +26,20 @@ void Weather::updateWeather() {
       Serial.println(json);
       DynamicJsonDocument doc(1024);
       DeserializationError error = deserializeJson(doc, json);
-
+      
       if (error) {
         Serial.print(F("Weather::updateWeather(), Deserialize json failed: "));
         Serial.println(error.f_str());
         isError = true;
       } else {
-        const char* main = doc["weather"][0]["main"];
-        skycon = String(main);
-        if (skycon == "") {
-          // Skycon is empty;
-          isError = true;
+        const int returnCode = doc["cod"];
+        if (returnCode == 200) {
+          const char* main = doc["weather"][0]["main"];
+          skycon = String(main);
+          currentTemp = doc["main"]["temp"];
+          maxTemp = doc["main"]["temp_max"];
         } else {
-          temp = doc["main"]["temp"];
+          isError = true;
         }
       }
     } else {
@@ -50,5 +53,5 @@ void Weather::updateWeather() {
 }
 
 String Weather::apiURL() {
-  return endpoint + "appid=" + String(openWeatherKey) + "&lat=" + String(latitude) + "&lon=" + String(longitude) + F("&units=metric");
+  return endpoint + "appid=" + String(openWeatherKey) + "&lat=" + String(latitude) + "&lon=" + String(longitude) + (USE_METRIC ? "&units=metric" : "");
 }
