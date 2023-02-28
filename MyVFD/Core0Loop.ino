@@ -4,6 +4,7 @@ const long modeCycleInterval = 3000;
 unsigned long modeCycleTimeStamp = 0;
 
 void core0Loop() {
+  showLoadingAnimation = false;
   switch (currentMode) {
     case ipAddress:
       if (WiFi.status() != WL_CONNECTED) {
@@ -32,12 +33,11 @@ void core0Loop() {
     case currentTemp:
     case highTemp:
     case lowTemp:
-      if (weather.firstValueLoaded) {
-        showLoadingAnimation = false;
-      } else {
+      if (!weather.firstValueLoaded) {
         showLoadingAnimation = weather.isLoading;
       }
       break;
+      
     default: break;
   }
   checkNextMode();
