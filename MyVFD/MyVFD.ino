@@ -20,6 +20,8 @@ const byte hardwareConfig = P_TRANSISTORS;
 const byte numDigits = 9;
 const byte digitPins[] = {15, 16, 18, 21, 12, 22, 27, 25, 32};
 const byte segmentPins[] = {14, 33, 26, 13, 19, 17, 4, 23};
+const bool resistorsOnSegments = false;
+const bool updateWithDelays = false;
 
 // Multi Core
 TaskHandle_t Core0Task[1];
@@ -47,8 +49,8 @@ void setup() {
   WiFi.begin(wifiSSID, wifiPassword);
 
   // SevSeg
-  sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins);
-  sevseg.setBrightness(100);
+  sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins, resistorsOnSegments, updateWithDelays);
+  sevseg.setBrightness(120);
 
   // Multi Core
   xTaskCreatePinnedToCore(Core0a, "Core0a", 1024*8, NULL, 1, &Core0Task[0], 0); 
