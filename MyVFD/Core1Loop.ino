@@ -41,11 +41,7 @@ void core1Loop() {
     case currentTime:
       sevseg.setChars(dateTime.timeString);
       break;
-
-    case customText:
-      sevseg.setChars("Fish-Moon");
-      break;
-
+      
     case currentTemp:
     case highTemp:
     case lowTemp:

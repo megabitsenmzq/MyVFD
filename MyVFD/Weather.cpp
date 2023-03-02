@@ -38,6 +38,7 @@ void Weather::updateWeather() {
           skycon = String(main);
           currentTemp = doc["main"]["temp"];
           maxTemp = doc["main"]["temp_max"];
+          minTemp = doc["main"]["temp_min"];
         } else {
           isError = true;
         }
