@@ -57,6 +57,7 @@ void waitForWifi() {
 }
 
 void setupModules() {
+  webServer.setupServer();
   dateTime.setupTime();
 }
 

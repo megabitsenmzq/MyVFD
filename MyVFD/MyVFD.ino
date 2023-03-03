@@ -3,6 +3,7 @@
 #include "src/SevSeg/SevSeg.h"
 #include "Bitmap.h"
 #include "Secret.h"
+#include "WebServer.h"
 #include "DateTime.h"
 #include "Weather.h"
 
@@ -31,6 +32,7 @@ int currentModeIndex = 0;
 bool showLoadingAnimation = true;
 
 // Modules
+WebServer webServer = WebServer();
 DateTime dateTime = DateTime();
 Weather weather = Weather();
 

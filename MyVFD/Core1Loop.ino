@@ -29,6 +29,11 @@ void core1Loop() {
     loadingAnimationIndex = 0;
   }
 
+  if (webServer.customText != "") {
+    sevseg.setChars(webServer.customText.c_str());
+    return;
+  }
+
   switch (currentMode) {
     case ipAddress:
       sevseg.setChars(WiFi.localIP().toString().c_str());
