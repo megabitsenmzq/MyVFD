@@ -10,10 +10,6 @@
 #define LED_PIN 2 // On board LED.
 #define LED_BRIGHTNESS 64
 
-// Wifi
-extern char* wifiSSID;
-extern char* wifiPassword;
-
 // SveSeg
 SevSeg sevseg;
 const byte hardwareConfig = P_TRANSISTORS;
@@ -46,7 +42,7 @@ void setup() {
   ledcAttachPin(LED_PIN, 0);
 
   // WiFi
-  WiFi.begin(wifiSSID, wifiPassword);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
   // SevSeg
   sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins, resistorsOnSegments, updateWithDelays);

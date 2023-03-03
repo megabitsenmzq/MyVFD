@@ -54,5 +54,5 @@ void Weather::updateWeather() {
 }
 
 String Weather::apiURL() {
-  return endpoint + "appid=" + String(openWeatherKey) + "&lat=" + String(latitude) + "&lon=" + String(longitude) + (USE_METRIC ? "&units=metric" : "");
+  return endpoint + "appid=" + String(OPEN_WEATHER_KEY) + "&lat=" + String(LATITUDE) + "&lon=" + String(LONGITUDE) + (USE_METRIC ? "&units=metric" : "");
 }

@@ -47,7 +47,7 @@ void core0Loop() {
 void waitForWifi() {
   showLoadingAnimation = true;
   Serial.print("Connecting to ");
-  Serial.print(wifiSSID);
+  Serial.print(WIFI_SSID);
   while(WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(100);
