@@ -11,7 +11,7 @@ void Random::setupRandomGenerator() {
   numberUpdateTimeStamp = millis();
   animationIndex = 0;
   currentNumberStringWithAnimation = String(random(1000000000));
-  randomNumber = random(1000000000);
+  randomNumber = esp_random() / 10;
 }
 
 void Random::updateAnimation() {
