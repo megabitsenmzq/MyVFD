@@ -6,6 +6,7 @@
 #include "WebServer.h"
 #include "DateTime.h"
 #include "Weather.h"
+#include "Random.h"
 
 // LED
 #define LED_PIN 2 // On board LED.
@@ -25,7 +26,7 @@ TaskHandle_t Core0Task[1];
 TaskHandle_t Core1Task[1];
 
 // Display Mode
-enum DisplayMode {ipAddress, currentDate, currentTime, currentTemp, highTemp, lowTemp, customText, screenTest};
+enum DisplayMode {ipAddress, currentDate, currentTime, currentTemp, highTemp, lowTemp, customText, randomNumber, screenTest};
 DisplayMode modeCycle[] = {currentDate, currentTime, currentTemp, highTemp, lowTemp};
 DisplayMode currentMode = ipAddress;
 int currentModeIndex = 0;
@@ -35,6 +36,7 @@ bool showLoadingAnimation = true;
 WebServer webServer = WebServer();
 DateTime dateTime = DateTime();
 Weather weather = Weather();
+Random randomAnimator = Random();
 
 // Loading Animation
 const long loadingAnimtaionInterval = 100;

@@ -62,6 +62,11 @@ void core1Loop() {
       break;
       
     // Temp modes.
+    case randomNumber:
+    randomAnimator.updateAnimation();
+      sevseg.setChars(randomAnimator.currentNumberStringWithAnimation.c_str());
+      break;
+
     case customText:
       sevseg.setChars(webServer.customText.c_str());
       break;

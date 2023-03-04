@@ -42,6 +42,7 @@ void core0Loop() {
       
     // Temp modes.
     case customText:
+    case randomNumber:
     case screenTest:
       if (millis() - tempModeCycleTimeStamp > tempModeCycleInterval) {
         exitTempMode();
@@ -79,6 +80,9 @@ void webServerCallback(const char* newMode){
     screenTestTimeStamp = millis();
     screenTestingAnimationIndex = 0;
     currentMode = screenTest;
+  } else if (newMode == "random") {
+    randomAnimator.setupRandomGenerator();
+    currentMode = randomNumber;
   } else if (newMode == "reboot") {
     ESP.restart();
   } else {
