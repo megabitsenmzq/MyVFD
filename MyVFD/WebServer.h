@@ -66,7 +66,7 @@ const char index_html[] = R"(
   </form>
   <form action="/get">
     <h3>Actions: </h3>
-    <button type="submit" name="backToNormal" value="1">Back to Normal Mode</button>
+    <button type="submit" name="clearState" value="1">Clear State</button>
     <button type="submit" name="reboot" value="1">Reboot</button>
     <br/><br/>
   </form>

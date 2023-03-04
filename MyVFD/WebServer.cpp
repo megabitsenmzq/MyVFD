@@ -40,7 +40,7 @@ void WebServer::setupServer() {
       message = "Test started.";
     }
 
-    if (request->hasParam("backToNormal")) {
+    if (request->hasParam("clearState")) {
       callback("");
       message = "Action Sended.";
     }
