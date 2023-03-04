@@ -25,8 +25,8 @@ TaskHandle_t Core0Task[1];
 TaskHandle_t Core1Task[1];
 
 // Display Mode
-enum DisplayMode {ipAddress, currentDate, currentTime, currentTemp, highTemp, lowTemp, blank};
-DisplayMode modecycle[] = {currentDate, currentTime, currentTemp, highTemp, lowTemp};
+enum DisplayMode {ipAddress, currentDate, currentTime, currentTemp, highTemp, lowTemp, customText, screenTest};
+DisplayMode modeCycle[] = {currentDate, currentTime, currentTemp, highTemp, lowTemp};
 DisplayMode currentMode = ipAddress;
 int currentModeIndex = 0;
 bool showLoadingAnimation = true;
@@ -35,6 +35,16 @@ bool showLoadingAnimation = true;
 WebServer webServer = WebServer();
 DateTime dateTime = DateTime();
 Weather weather = Weather();
+
+// Loading Animation
+const long loadingAnimtaionInterval = 100;
+unsigned long loadingAnimationTimeStamp = 0;
+int loadingAnimationIndex = 0;
+
+// Screen test animation.
+const int screenTestInterval = 1000;
+unsigned long screenTestTimeStamp = 0;
+int screenTestingAnimationIndex = 0;
 
 void setup() {
   Serial.begin(115200);

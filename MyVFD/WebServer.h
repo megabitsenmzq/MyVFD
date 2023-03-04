@@ -6,11 +6,15 @@
 #include <ESPAsyncWebSrv.h>
 
 class WebServer {
+  using WebServerCallback = void (*)(const char*);
   private:
+    WebServerCallback callback;
   public:
-    WebServer();
     String customText = "";
+
+    WebServer();
     void setupServer();
+    void registerCallback(WebServerCallback newCallback);
 };
 
 #endif

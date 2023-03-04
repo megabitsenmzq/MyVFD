@@ -2,6 +2,8 @@
 
 const long modeCycleInterval = 3000;
 unsigned long modeCycleTimeStamp = 0;
+const int tempModeCycleInterval = 1000*60;
+unsigned long tempModeCycleTimeStamp = 0;
 
 void core0Loop() {
   showLoadingAnimation = false;
@@ -17,7 +19,7 @@ void core0Loop() {
         // Wait for time to align up.
       }
       modeCycleTimeStamp = millis(); 
-      currentMode = modecycle[0];
+      currentMode = modeCycle[0];
       break;
 
     case currentDate:
@@ -38,6 +40,14 @@ void core0Loop() {
       }
       break;
       
+    // Temp modes.
+    case customText:
+    case screenTest:
+      if (millis() - tempModeCycleTimeStamp > tempModeCycleInterval) {
+        exitTempMode();
+      }
+      break;
+
     default: break;
   }
   checkNextMode();
@@ -58,12 +68,38 @@ void waitForWifi() {
 
 void setupModules() {
   webServer.setupServer();
+  webServer.registerCallback(webServerCallback);
   dateTime.setupTime();
+}
+
+void webServerCallback(const char* newMode){
+  if (newMode == "customText") {
+    currentMode = customText;
+  } else if (newMode == "screenTest") {
+    screenTestTimeStamp = millis();
+    screenTestingAnimationIndex = 0;
+    currentMode = screenTest;
+  } else if (newMode == "reset") {
+    ESP.reset();
+  } else {
+    exitTempMode();
+    return;
+  }
+  
+  // Start temp mode.
+  modeCycleTimeStamp = 0; // Stop cycle.
+  tempModeCycleTimeStamp = millis();
+}
+
+void exitTempMode() {
+  currentModeIndex = 0;
+  currentMode = modeCycle[currentModeIndex];
+  modeCycleTimeStamp = millis(); // Continue cycle.
 }
 
 void checkNextMode() {
   if (modeCycleTimeStamp == 0) {
-    return; // WiFi setup not finished.
+    return; // Should not cycle through modes.
   }
 
   // Check time.
@@ -75,8 +111,8 @@ void checkNextMode() {
 
   // Next mode.
   currentModeIndex += 1;
-  currentModeIndex = currentModeIndex % (sizeof(modecycle) / sizeof(DisplayMode));
-  currentMode = modecycle[currentModeIndex];
+  currentModeIndex = currentModeIndex % (sizeof(modeCycle) / sizeof(DisplayMode));
+  currentMode = modeCycle[currentModeIndex];
 
   showLoadingAnimation = false;
   
