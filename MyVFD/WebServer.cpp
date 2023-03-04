@@ -59,7 +59,7 @@ const char index_html[] = R"(
   <form action="/get">
     <h3>Actions: </h3>
     <button type="submit" name="backToNormal" value="1">Back to Normal Mode</button>
-    <button type="submit" name="reset" value="1">Reset</button>
+    <button type="submit" name="reboot" value="1">Reboot</button>
     <br/><br/>
   </form>
   <h5>All contents set here will be displayed for 1 minute.</h5>
@@ -73,14 +73,14 @@ const char success_html[] = R"(
   <head>
   <title>MyVFD</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <META http-equiv="Refresh" content="3;URL=/">
   %Style%
   </head>
   <body>
   <h1>MyVFD</h1>
-  <form action="/get">
-    <h4>%message%</h4>
-    <br/>
-    <a href="/">Return to Home Page</a>
+  <h4>%message%</h4>
+  <br/>
+  <a href="/">Return to Home Page</a>
   </body>
   </html>
 )";
@@ -122,9 +122,16 @@ void WebServer::setupServer() {
       callback("");
       message = "Action Sended.";
     }
-    if (request->hasParam("reset")) {
-      callback("reset");
-      message = "Action Sended.";
+
+    if (request->hasParam("reboot")) {
+      message = "Rebooting...";
+      String htmlWithStyles = String(success_html);
+      htmlWithStyles.replace("%Style%", String(style));
+      htmlWithStyles.replace("%message%", message);
+      request->send(200, "text/html", htmlWithStyles.c_str());
+      delay(1000);
+      callback("reboot");
+      return;
     }
 
     String htmlWithStyles = String(success_html);

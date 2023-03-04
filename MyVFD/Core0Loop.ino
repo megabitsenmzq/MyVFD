@@ -79,8 +79,8 @@ void webServerCallback(const char* newMode){
     screenTestTimeStamp = millis();
     screenTestingAnimationIndex = 0;
     currentMode = screenTest;
-  } else if (newMode == "reset") {
-    ESP.reset();
+  } else if (newMode == "reboot") {
+    ESP.restart();
   } else {
     exitTempMode();
     return;
