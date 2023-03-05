@@ -57,6 +57,8 @@ On the ESP32 side. I'm using almost all the GPIO pins. but specifically left G2 
 
 ![board](Assets/board.jpeg)
 
+![board](Assets/board2.jpeg)
+
 (The big red wire is for testing before using any high voltage.)
 
 And after the DC/DC converter soldered, I wrote a small program to test if there are any bad soldering. 
