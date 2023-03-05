@@ -85,14 +85,13 @@ To use my code, you need to create a "secret.h" file from the template. Then inp
 
 If everything is set correctly, you will see the IP address on the screen after it is connected. The screen will change between date/time and weather info. You can access the IP address to control it from the web UI. 
 
-![webUI](Assets/webUI.jpeg)
+<img src="Assets/webUI.jpeg" width=500 />
 
 ## Make a shell
 
 Finally, to cover my bad soldering, I need a shell for the board. This time I'm using FreeCAD. After tons of prototypes on my 3D printer, I got a reasonably good final result.
 
 ![freeCAD](Assets/freeCAD.jpeg)
-
 
 ![printing](Assets/printing.gif)
 
