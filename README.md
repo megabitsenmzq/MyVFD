@@ -1,6 +1,6 @@
 # MyVFD - A 9-Digit VFD Info Station
 
-![Cover](assets/cover.jpeg)
+![Cover](Assets/cover.jpeg)
 
 Last year, I got an old Sharp EL-8109 calculator. Which uses a 9-digit Futaba 9-ST-08A VFD display. The calculator still works, but the shell is in bad shape, making it worth almost nothing. So I decided to use the screen inside to make something useful and look good.
 
@@ -14,11 +14,9 @@ VFD means vacuum fluorescent display. Widely used in DVDs, radios, cassette deck
 
 But LCD screens are becoming a better choice these days, and VFDs are no longer popular. Today, the green color of VFD screens gives them a retro vibe. If you want to see more beautiful VFDs, I recommend you watch this YouTube video by Posy: [VFD Displays](https://www.youtube.com/watch?v=PkPSDOjhxwM).
 
-![9-ST-08A](assets/9-ST-08A.jpeg)
+![9-ST-08A](Assets/9-ST-08A.jpeg)
 
 The screen 9-ST-08A was used in a variety of calculators around the 1970s, like Sanyo CX-8032 or Unisonic 1040. The company [Futaba (双葉電子工業株式会社)](https://www.futaba.co.jp/product/vfd) was Founded in 1948, making vacuum tubes and related things. They produced VFD screens until the end of 2021. Now they are moving on to newer display technologies.
-
-https://www.futaba.co.jp/product/vfd
 
 ## How to use the screen
 
@@ -40,30 +38,30 @@ After wiring the filament properly, we can start to take a look at other pins. A
 
 By probing you will know which pin is connected to which part of the screen. You can also check if there is a schematic printed behind the screen, like the image above.
 
-![Probing](assets/probing.png)
+![Probing](Assets/probing.jpeg)
 
 
 ## Build the circuit
 
-![Circuit](assets/circuit.jpeg)
+![Circuit](Assets/circuit.jpeg)
 
 In this circuit, I'm using Darlington Transistor Arrays (ULN2803) to control the screen. When the input pin of a transistor is low, the current goes through a 10K pull-up resistor and then the screen. When the input pin is high, it goes through the resistor and the transistor to the ground.
 
 I have referenced [this](https://www.instructables.com/A-Simple-Driver-for-VFD-Displays/) design beforehand. In the schematic, it says the common pin of the ULN2803 should connect to the ground. But after reading the datasheet and testing, I found this pin should not connect to anything. And the GND pin should be grounded.
 
-![soldering](assets/soldering.jpeg)
+![soldering](Assets/soldering.jpeg)
 
 I also found that the first transistor in the ULN2803 has a different behavior than others. When the input pin 1 is high, all the other transistors in the array will be turned on too. I don't understand why, but I can simply ignore the first pin. Tell me why if you know the reason.
 
 On the ESP32 side. I'm using almost all the GPIO pins. but specifically left G2 behind. Because G2 is also connected to the onboard LED.
 
-![board](assets/board.jpeg)
+![board](Assets/board.jpeg)
 
 (The big red wire is for testing before using any high voltage.)
 
 And after the DC/DC converter soldered, I wrote a small program to test if there are any bad soldering. 
 
-![screen_testing](assets/screen_testing.gif)
+![screen_testing](Assets/screen_testing.gif)
 
 
 ## Programming the ESP32
@@ -85,16 +83,16 @@ To use my code, you need to create a "secret.h" file from the template. Then inp
 
 If everything is set correctly, you will see the IP address on the screen after it is connected. The screen will change between date/time and weather info. You can access the IP address to control it from the web UI. 
 
-![webUI](assets/webUI.jpeg)
+![webUI](Assets/webUI.jpeg)
 
 ## Make a shell
 
 Finally, to cover my bad soldering, I need a shell for the board. This time I'm using FreeCAD. After tons of prototypes on my 3D printer, I got a reasonably good final result.
 
-![freeCAD](assets/freeCAD.jpeg)
+![freeCAD](Assets/freeCAD.jpeg)
 
 
-![printing](assets/printing.gif)
+![printing](Assets/printing.gif)
 
 After a month of hard work, I finally finished my first hardware project. I uploaded a [demo](https://www.youtube.com/watch?v=nbPkMLYwmgs) on YouTube, you can check it out. Hope you like it. Follow me on social media for my other projects. 
 
