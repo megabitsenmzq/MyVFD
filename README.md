@@ -95,8 +95,15 @@ Finally, to cover my bad soldering, I need a shell for the board. This time I'm 
 
 ![printing](Assets/printing.gif)
 
-After a month of hard work, I finally finished my first hardware project. I uploaded a [demo](https://www.youtube.com/watch?v=nbPkMLYwmgs) on YouTube, you can check it out. Hope you like it. Follow me on social media for my other projects. 
+After a month of hard work, I finally finished my first hardware project. I uploaded a [demo](https://www.youtube.com/watch?v=nbPkMLYwmgs) on YouTube, you can check it out. Hope you like it. Follow me on social media for my other projects. See you next time.
 
-[Twitter (EN)](https://twitter.com/Megabits_Studio), [Twitter (CN)](https://twitter.com/Megabits_mzq), [Twitter (JP)](https://twitter.com/Megabits_mzq_jp), [Mastodon](https://fedibird.com/web/accounts/108675431540717996/)
+References:
 
-See you next time.
+[A Simple Driver for VFD Displays](https://www.instructables.com/A-Simple-Driver-for-VFD-Displays/)
+
+[Arduino VFD Display Clock Tutorial - a Guide to VFD Displays](https://www.instructables.com/Arduino-VFD-Display-Clock-Tutorial-A-Guide-To-VFD-/)
+
+[Arduinoを使ったVFD時計](https://elchika.com/article/81006b73-b0ff-498c-a89d-bc5b85f340b5/)
+
+[Driving a VFD with MAX7219 (and Arduino)](https://www.hackster.io/wiresauce/driving-a-vfd-with-max7219-and-arduino-b01f0c)
+
