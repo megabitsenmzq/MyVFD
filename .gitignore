@@ -1,6 +1,6 @@
 .vscode
+secret.h
 Secret.h
-Secret.cpp
 debug_custom.json
 debug.cfg
 *.svd
