@@ -1,4 +1,5 @@
 #include "WebServer.h"
+#include <ESPmDNS.h>
 
 AsyncWebServer server(80);
     
@@ -11,6 +12,9 @@ void WebServer::registerCallback(WebServerCallback newCallback){
 }
 
 void WebServer::setupServer() {
+  MDNS.begin("myvfd");
+  MDNS.addService("http", "tcp", 80);
+  
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     String htmlWithStyles = String(index_html);
     htmlWithStyles.replace("%Style%", String(style));
