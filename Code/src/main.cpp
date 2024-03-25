@@ -36,6 +36,10 @@ void setup() {
   // Multi Core
   xTaskCreatePinnedToCore(core0a, "Core0a", 1024*8, NULL, 1, &Core0Task[0], 0);
   xTaskCreatePinnedToCore(core1a, "Core1a", 1024*4, NULL, 1, &Core1Task[0], 1);
+
+  // Filament Power Signal
+  pinMode(5, OUTPUT);
+  analogWrite(5, 128);
 }
 
 void loop() {
