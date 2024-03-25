@@ -48,6 +48,10 @@ const int screenTestInterval = 1000;
 unsigned long screenTestTimeStamp = 0;
 int screenTestingAnimationIndex = 0;
 
+// Filament Power Signal
+pinMode(5, OUTPUT);
+analogWrite(5, 128);
+
 void setup() {
   Serial.begin(115200);
 
