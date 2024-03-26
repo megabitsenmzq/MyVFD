@@ -4,7 +4,7 @@
 
 Last year, I got an old Sharp EL-8109 calculator. Which uses a 9-digit Futaba 9-ST-08A VFD display. The calculator still works, but the shell is in bad shape, making it worth almost nothing. So I decided to use the screen inside to make something useful and look good.
 
-This is the first hardware project I've ever made, so maybe I will do something wrong. Since I'm not a native English speaker, if you found any strange grammar, it's possibly my fault.
+This is the first hardware project I've ever made, so maybe I will do something wrong. Since I'm not a native English speaker, if you find any strange grammar, it's possibly my fault.
 
 ## What is a VFD
 
@@ -26,15 +26,17 @@ This image from Futaba's website shows the basic structure of a VFD screen.
 
 ![VFD Structure](https://d21xsz2za2b5mz.cloudfront.net/7916/1916/2375/vinfo_vfd01.jpeg)
 
-VFD screens are very similar to vacuum tubes. Mainly, we have filaments, grids, and anodes. Filaments are very thin wires. They provide heat and a negative charge to the system. Anodes and grids provide high-voltage positive change. Electrons will fly from filaments, pass the grids, and hit the anodes when they are both powered. Then you can see the beautiful green light from the phosphor.
+VFD screens are very similar to vacuum tubes. Mainly, we have filaments, grids, and anodes. Filaments are very thin wires. They provide heat and a negative charge to the system. Anodes and grids provide high-voltage positive charge. Electrons will fly from filaments, pass the grids, and hit the anodes when they are both powered. Then you can see the beautiful green light from the phosphor.
 
 ![VFD Structure 2](https://d21xsz2za2b5mz.cloudfront.net/2416/1916/2373/vinfo_genri01.jpeg)
 
-On a VFD screen. The pins on both sides are typically filament pins. They require a voltage of around 3V. And because we need a negative charge on the filament, the side near the positive pin will look dim. So it's best to power it with AC. This can ensure the screen lights evenly and extend its life. Since I want to have a relatively small package on the final product. This time I will just use DC to power the screen.
+On a VFD screen. The pins on both sides are typically filament pins. They require a voltage of around 3V. And because we need a negative charge on the filament, the side near the positive pin will look dim. So it's best to power it with AC. This can ensure the screen lights evenly and extend its life. ~~Since I want to have a relatively small package on the final product. This time I will just use DC to power the screen.~~
 
-When you add voltage to the pin, you should keep eye on the filament wires. If they start to glow, turn down the voltage immediately. Otherwise, the wires can start to melt and break.
+I'm using a square wave as the AC power for the filament. First, I generate a 50% PWM signal from a pin. Then use a NOT gate to generate an inverted signal. Feed both signals to an H-bridge, there so we can have a square wave from about +5V to -5V.
 
-After wiring the filament properly, we can start to take a look at other pins. Anodes and grids require a relatively high voltage. To provide this voltage, you need a step-up DC/DC converter. Connect the converter to the same ground as the filament, and use the high voltage to probe the pins. You need to connect both an anode pin and a grid pin to turn one segment on. Since I have a small screen that doesn't require such a high voltage to just light, I can use 5V for probing.
+Using a potentiometer to lower the voltage, adjust it to a proper value. When changing the voltage to the filament, you should keep an eye on the filament wires. If they start to glow, turn down the voltage immediately. Otherwise, the wires can start to melt and break. You might need to turn off all lights in your room to focus on this. You should let the voltage be just below the point which lets the filament glow.
+
+After wiring the filament properly, we can start to take a look at other pins. Anodes and grids require a relatively high voltage. To provide this voltage, you need a step-up DC/DC converter. Connect the converter ground to the common ground, and use the high voltage to probe the pins. You need to connect both an anode pin and a grid pin to turn one segment on. Since I have a small screen that doesn't require such a high voltage to just light, I can use 5V for probing.
 
 By probing you will know which pin is connected to which part of the screen. You can also check if there is a schematic printed behind the screen, like the image above.
 
@@ -47,13 +49,15 @@ By probing you will know which pin is connected to which part of the screen. You
 
 In this circuit, I'm using Darlington Transistor Arrays (ULN2803) to control the screen. When the input pin of a transistor is low, the current goes through a 10K pull-up resistor and then the screen. When the input pin is high, it goes through the resistor and the transistor to the ground.
 
-I have referenced [this](https://www.instructables.com/A-Simple-Driver-for-VFD-Displays/) design beforehand. In the schematic, it says the common pin of the ULN2803 should connect to the ground. But after reading the datasheet and testing, I found this pin should not connect to anything. And the GND pin should be grounded.
-
-![soldering](Assets/soldering.jpeg)
+I have referenced [this](https://www.instructables.com/A-Simple-Driver-for-VFD-Displays/) design beforehand. In the schematic, it says the common pin of the ULN2803 should connect to the ground. However, after reading the datasheet and testing, I found this pin should not connect to anything. And the GND pin should be grounded.
 
 I also found that the first transistor in the ULN2803 has a different behavior than others. When the input pin 1 is high, all the other transistors in the array will be turned on too. I don't understand why, but I can simply ignore the first pin. Tell me why if you know the reason.
 
-On the ESP32 side. I'm using almost all the GPIO pins. but specifically left G2 behind. Because G2 is also connected to the onboard LED.
+On the ESP32 side. I'm using almost all the GPIO pins. but specifically left D2 behind. Because D2 is also connected to the onboard LED.
+
+On the right side, you can see the AC power circuit. When the first time I made this project, I used to have DC power on the filament. Then I managed to find an easy way to do this, and the footprint is relatively small.
+
+![soldering](Assets/soldering.jpeg)
 
 ![board](Assets/board.jpeg)
 
@@ -61,14 +65,14 @@ On the ESP32 side. I'm using almost all the GPIO pins. but specifically left G2 
 
 (The big red wire is for testing before using any high voltage.)
 
-And after the DC/DC converter soldered, I wrote a small program to test if there are any bad soldering. 
+After the DC/DC converter soldered, I wrote a small program to test if there were any bad soldering. 
 
 ![screen_testing](Assets/screen_testing.gif)
 
 
 ## Programming the ESP32
 
-To control the screen. I'm using a library called [SevSeg](https://github.com/DeanIsMe/SevSeg). It was made to control 7-Seg LED displays but also works on VFD. Because my screen has 9 digits, I need to modify the code to use more than 8 digits. And this library does not support some of the alphabets, so I added the missing parts by myself.
+To control the screen. I'm using a library called [SevSeg](https://github.com/DeanIsMe/SevSeg). It was made to control 7-Seg LED displays but also works on VFD. Because my screen has 9 digits, I need to modify the code to use more than 8 digits. And this library does not support some of the alphabet, so I added the missing parts by myself.
 
 After a week of programming. My VFD info station now supports:
 
