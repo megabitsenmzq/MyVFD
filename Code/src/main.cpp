@@ -31,7 +31,7 @@ void setup() {
 
   // SevSeg
   sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins, resistorsOnSegments, updateWithDelays);
-  sevseg.setBrightness(120);
+  sevseg.setBrightness(100);
 
   // Multi Core
   xTaskCreatePinnedToCore(core0a, "Core0a", 1024*8, NULL, 1, &Core0Task[0], 0);
