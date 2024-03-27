@@ -69,6 +69,13 @@ After the DC/DC converter soldered, I wrote a small program to test if there wer
 
 ![screen_testing](Assets/screen_testing.gif)
 
+Let's see the final soldering result.
+
+![top](Assets/top.jpeg)
+
+![bottom](Assets/bottom.jpeg)
+
+![side](Assets/side.jpeg)
 
 ## Programming the ESP32
 
