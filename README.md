@@ -57,11 +57,9 @@ On the ESP32 side. I'm using almost all the GPIO pins. but specifically left D2 
 
 On the right side, you can see the AC power circuit. When the first time I made this project, I used to have DC power on the filament. Then I managed to find an easy way to do this, and the footprint is relatively small.
 
-![soldering](Assets/soldering.jpeg)
-
-![board](Assets/board.jpeg)
-
-![board](Assets/board2.jpeg)
+| Testing with the original board | Soldering | Soldering |
+| -------------- | -------------- | -------------- |
+| ![testing](Assets/testing.jpeg) | ![soldering1](Assets/soldering1.jpeg) | ![soldering2](Assets/soldering2.jpeg) |
 
 (The big red wire is for testing before using any high voltage.)
 
@@ -69,13 +67,11 @@ After the DC/DC converter soldered, I wrote a small program to test if there wer
 
 ![screen_testing](Assets/screen_testing.gif)
 
-Let's see the final soldering result.
+Let's see the final board.
 
-![top](Assets/top.jpeg)
-
-![bottom](Assets/bottom.jpeg)
-
-![side](Assets/side.jpeg)
+| Top | Bottom | Side |
+| -------------- | -------------- | -------------- |
+| ![top](Assets/top.jpeg) | ![bottom](Assets/bottom.jpeg) | ![side](Assets/side.jpeg) |
 
 ## Programming the ESP32
 
