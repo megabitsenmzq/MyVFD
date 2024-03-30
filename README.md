@@ -1,4 +1,4 @@
-# MyVFD - A 9-Digit VFD Info Station
+# MyVFD - A 9-Digit VFD Info Station ([Demo](https://www.youtube.com/watch?v=nbPkMLYwmgs))
 
 ![Cover](Assets/cover.jpeg)
 
