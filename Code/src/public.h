@@ -20,7 +20,7 @@ const byte hardwareConfig = P_TRANSISTORS;
 const byte numDigits = 9;
 const byte digitPins[] = {15, 16, 18, 21, 12, 22, 27, 25, 32};
 const byte segmentPins[] = {14, 33, 26, 13, 19, 17, 4, 23};
-const bool resistorsOnSegments = false;
+const bool resistorsOnSegments = true;
 const bool updateWithDelays = false;
 
 // Display Mode
